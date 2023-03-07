@@ -8,7 +8,7 @@ const fetchNotes = async (req, res) => {
   const notes = await Note.find();
 
   // Respond with them
-  res.json({ notes: notes });
+  res.json({ notes }); //if the key and value match notes: notes, shortened
 };
 
 // Function to fetch a note by id
@@ -20,24 +20,23 @@ const fetchNote = async (req, res) => {
   const note = await Note.findById(noteId)
 
   // Respond with the note
-  res.json({note: note});
+  res.json({ note });
 }
 
 // Function to create a note in the database
 const createNote = async (req, res) => {
   // post is used when we are creating data, it can also accept data via the request body, also we made it an async function because it takes time to do perform the action
   // get the sent in data off request body
-  const title = req.body.title;
-  const body = req.body.body;
+  const {title, body} = req.body;  // same as const title = req.body.title; const body = req.body.body;
 
   // create a note with it
   const note = await Note.create({
-    title: title,
-    body: body,
+    title,
+    body,
   });
 
   //respond with the new note
-  res.json({ note: note });
+  res.json({ note });
 }
 
 // Function to update a note by id
@@ -46,20 +45,19 @@ const updateNote = async (req, res) => {
   const noteId = req.params.id;
 
   // Get the data off the request body
-  const title = req.body.title;
-  const body = req.body.body;
+  const {title, body} = req.body;
 
   // Find and update the record
   await Note.findByIdAndUpdate(noteId, {
-    title: title,
-    body: body,
+    title,
+    body,
   });
 
   // Find the updated note from db
   const note = await Note.findById(noteId);
 
   // Respond with it
-  res.json({ note: note });
+  res.json({ note });
 }
 
 // Function to delte a note by id
@@ -76,9 +74,9 @@ const deleteNote = async (req, res) => {
 
 // exporting the functions inside an object 
 module.exports = {
-  fetchNotes: fetchNotes,
-  fetchNote: fetchNote,
-  createNote: createNote,
-  updateNote: updateNote,
-  deleteNote: deleteNote,
+  fetchNotes,
+  fetchNote,
+  createNote,
+  updateNote,
+  deleteNote,
 }
