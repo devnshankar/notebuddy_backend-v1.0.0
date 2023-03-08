@@ -8,12 +8,14 @@ if (process.env.NODE_ENV != "production") {
 const express = require("express");
 const connectToDb = require("./config/connectToDb");
 const notesController = require('./controllers/notesController');
+const cors = require("cors");
 
 //create an express app
 const app = express();
 
 // Configure express app
 app.use(express.json()); //express as default can't read json data so we configure it to do so
+app.use(cors());
 
 // Connect to mongo database
 connectToDb();
