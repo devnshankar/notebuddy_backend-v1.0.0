@@ -9,18 +9,34 @@ const express = require("express");
 const connectToDb = require("./config/connectToDb");
 const notesController = require('./controllers/notesController');
 const cors = require("cors");
+const usersController = require("./controllers/usersController");
+const cookieParser = require('cookie-parser');
+const requireAuth = require('./middleware/requireAuth');
 
 //create an express app
 const app = express();
 
 // Configure express app
-app.use(express.json()); //express as default can't read json data so we configure it to do so
-app.use(cors());
+app.use(express.json()); // express as default can't read json data so we configure it to do so
+app.use(cookieParser()); // enabling the cookieParser 
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 
 // Connect to mongo database
 connectToDb();
 
-// routing
+// ROUTING
+// To signup // we are senging in email and password thats why its post
+app.post('/signup', usersController.signup);
+// To login
+app.post("/login", usersController.login);
+// To Logout
+app.get("/logout", usersController.logout);
+// To authenticate
+app.get("/check-auth", requireAuth, usersController.checkAuth);
+
 // To fetch all the notes
 app.get("/notes", notesController.fetchNotes);
 // To fetch one note by id

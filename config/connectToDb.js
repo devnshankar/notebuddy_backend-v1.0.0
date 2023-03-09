@@ -3,9 +3,7 @@ const mongoose = require("mongoose");
 
 
 //Load Env variables
-if(process.env.NODE_ENV != "production"){  //this if statement makes sure if the server runs lcally then it uses the env vars otherwise in production it won't
-  require("dotenv").config();
-}
+// we only need to load it once in the server file
 
 
 //because it is using await we add async to this function
