@@ -38,15 +38,15 @@ app.get("/logout", usersController.logout);
 app.get("/check-auth", requireAuth, usersController.checkAuth);
 
 // To fetch all the notes
-app.get("/notes", notesController.fetchNotes);
+app.get("/notes", requireAuth, notesController.fetchNotes);
 // To fetch one note by id
-app.get('/notes/:id', notesController.fetchNote);
+app.get('/notes/:id', requireAuth, notesController.fetchNote);
 // To post a note
-app.post("/notes", notesController.createNote);
+app.post("/notes", requireAuth, notesController.createNote);
 // To update a note by id
-app.put('/notes/:id', notesController.updateNote);
+app.put('/notes/:id', requireAuth, notesController.updateNote);
 // To delete a note by id
-app.delete('/notes/:id', notesController.deleteNote);
+app.delete('/notes/:id', requireAuth, notesController.deleteNote);
 
 // start the server with port
 app.listen(process.env.PORT); // we can access the environment variables by process.env.<variable name>
