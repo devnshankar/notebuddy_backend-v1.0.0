@@ -46,4 +46,6 @@ app.put('/notes/:id', requireAuth, notesController.updateNote);
 app.delete('/notes/:id', requireAuth, notesController.deleteNote);
 
 // start the server with port
-app.listen(PORT); // we can access the environment variables by process.env.<variable name>
+app.listen(PORT, () => {
+  console.log(`app listening on port ${PORT} !`);
+}); // we can access the environment variables by process.env.<variable name>
