@@ -1,8 +1,5 @@
 //Load Env variables
-if (process.env.NODE_ENV != "production") {
-  //this if statement makes sure if the server runs lcally then it uses the env vars otherwise in production it won't
-  require("dotenv").config();
-}
+require("dotenv").config();
 
 // import dependencies
 const express = require("express");
@@ -12,7 +9,7 @@ const cors = require("cors");
 const usersController = require("./controllers/usersController");
 const cookieParser = require('cookie-parser');
 const requireAuth = require('./middleware/requireAuth');
-
+const PORT = process.env.PORT || 3000;
 //create an express app
 const app = express();
 
@@ -49,4 +46,4 @@ app.put('/notes/:id', requireAuth, notesController.updateNote);
 app.delete('/notes/:id', requireAuth, notesController.deleteNote);
 
 // start the server with port
-app.listen(process.env.PORT); // we can access the environment variables by process.env.<variable name>
+app.listen(PORT); // we can access the environment variables by process.env.<variable name>
