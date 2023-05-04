@@ -16,10 +16,12 @@ const app = express();
 // Configure express app
 app.use(express.json()); // express as default can't read json data so we configure it to do so
 app.use(cookieParser()); // enabling the cookieParser 
-app.use(cors({
-  origin: true,
-  credentials: true,
-}));
+app.use(
+  cors({
+    origin: `${process.env.CLIENTURL}`,
+    credentials: true,
+  })
+);
 
 // Connect to mongo database
 connectToDb();
