@@ -18,7 +18,7 @@ app.use(express.json()); // express as default can't read json data so we config
 app.use(cookieParser()); // enabling the cookieParser 
 app.use(
   cors({
-    origin: `${process.env.CLIENTURL}`,
+    origin: "https://notedbuddy.netlify.app",
     credentials: true,
   })
 );
