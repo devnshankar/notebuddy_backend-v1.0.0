@@ -9,25 +9,22 @@ const cors = require("cors");
 const usersController = require("./controllers/usersController");
 const cookieParser = require('cookie-parser');
 const requireAuth = require('./middleware/requireAuth');
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 //create an express app
 const app = express();
 
 // Configure express app
 app.use(express.json()); // express as default can't read json data so we configure it to do so
 app.use(cookieParser()); // enabling the cookieParser 
-app.use(
-  cors({
-    origin: `${process.env.CLIENTURL}`,
-    credentials: true,
-  })
-);
+app.use(cors({
+  origin: `${process.env.CLIENTURL}`,
+  credentials: true,}));
 
 // Connect to mongo database
 connectToDb();
 
 // ROUTING
-// To signup // we are senging in email and password thats why its post
+// To signup // we are sending in email and password thats why its post
 app.post('/signup', usersController.signup);
 // To login
 app.post("/login", usersController.login);
